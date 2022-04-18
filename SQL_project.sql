@@ -7,6 +7,7 @@ ORDER BY 3,4
 --FROM PorfolioProject..CovidVaccinations
 --ORDER BY 3,4
 
+
 -- Select Data that we are going to be using
 
 SELECT Location, date, total_cases, new_cases, total_deaths, population
@@ -24,6 +25,7 @@ WHERE location like '%United kingdom%'
 and continent is not null
 ORDER BY 1,2
 
+
 -- Looking at Total Cases vs Population
 -- Shows what percentage of population got Covid
 
@@ -32,6 +34,7 @@ FROM PorfolioProject..CovidDeaths
 WHERE location like '%United kingdom%'
 and continent is not null
 ORDER BY 1,2
+
 
 -- Looking at countries with highest infection rate compared to Population
 
@@ -59,6 +62,7 @@ WHERE continent is not null
 GROUP BY continent
 ORDER BY TotalDeathCount desc
 
+
 --Global numbers
 
 SELECT SUM(new_cases) as TotalCases, SUM(cast(new_deaths as int)) as TotalDeaths, SUM(cast(new_deaths as int))/SUM(New_Cases)*100 AS DeathPercentage
@@ -66,8 +70,8 @@ FROM PorfolioProject..CovidDeaths
 where continent is not null
 ORDER BY 1,2
 
--- Looking at Total Population vs Vaccinations
 
+-- Looking at Total Population vs Vaccinations
 
 SELECT dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations,
  SUM(cast(vac.new_vaccinations as bigint)) OVER (Partition by dea.location ORDER BY dea.location,
@@ -124,6 +128,7 @@ WHERE dea.continent is not null
 
 SELECT *, (RollingPeopleVaccinated/Population)*100
 FROM #PercentPopulationVaccinated
+
 
 -- Creating view to store data for later visualizations
 
